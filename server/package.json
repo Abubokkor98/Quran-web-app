@@ -4,16 +4,17 @@
   "type": "module",
   "scripts": {
     "dev": "bun run --watch src/dev.ts",
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm --out-dir dist",
     "start": "bun run src/index.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "hono": "^4.7.0",
-    "fuse.js": "^7.1.0"
+    "fuse.js": "^7.1.0",
+    "hono": "^4.7.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }
 }
