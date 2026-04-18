@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
-import chaptersData from "../../data/chapters.json";
-import quranData from "../../data/quran_en.json";
+import chaptersData from "../data/chapters.json";
+import quranData from "../data/quran_en.json";
 import type {
   ChapterDetail,
   ChapterMeta,
