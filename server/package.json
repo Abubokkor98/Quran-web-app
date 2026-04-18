@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "bun run --watch src/dev.ts",
     "build": "tsup src/index.ts --format esm --out-dir dist",
+    "postinstall": "tsup src/index.ts --format esm --out-dir dist",
     "start": "bun run src/index.ts",
     "typecheck": "tsc --noEmit"
   },
