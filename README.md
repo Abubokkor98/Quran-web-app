@@ -2,6 +2,8 @@
 
 A modern, full-stack Quran reader application featuring Arabic text with Sahih International English translation, fuzzy search, customizable reading settings, and a sacred manuscript-inspired dark theme.
 
+![Quran Web App Preview](./public/preview.png)
+
 **Live:** [Frontend](https://quran-web-app.vercel.app) | [Backend API](https://quran-web-app-api.vercel.app)
 
 > **Reviewing this project?** Jump to [Run Locally](#run-locally) for the complete setup guide - clone, install, and run in under 2 minutes.
