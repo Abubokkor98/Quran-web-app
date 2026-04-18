@@ -3,8 +3,6 @@ import { cors } from "hono/cors";
 import chaptersRoute from "./routes/chapters";
 import searchRoute from "./routes/search";
 
-const SERVER_PORT = 3001;
-
 const app = new Hono();
 
 // Enable CORS for local and production origins
@@ -36,14 +34,4 @@ app.get("/", (context) => {
   });
 });
 
-// Bun local dev server (ignored by Vercel)
-if (typeof Bun !== "undefined") {
-  console.log(`🕌 Quran API running at http://localhost:${SERVER_PORT}`);
-  Bun.serve({
-    port: SERVER_PORT,
-    fetch: app.fetch,
-  });
-}
-
-// Vercel uses this default export directly
 export default app;
