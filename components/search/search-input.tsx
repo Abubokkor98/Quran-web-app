@@ -45,7 +45,7 @@ export function SearchInput({ initialQuery = "" }: SearchInputProps) {
           placeholder="Search ayahs by translation (e.g. mercy, light, patience)..."
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          className="pl-10 h-11"
+          className="pl-10 h-9"
           autoFocus
         />
       </div>
