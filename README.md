@@ -1,6 +1,6 @@
 # Quran Web App
 
-A modern, full-stack Quran reader application featuring Arabic text with Sahih International English translation, fuzzy search, customizable reading settings, and a sacred manuscript-inspired dark theme.
+A modern, full-stack Quran reader application featuring Arabic text with English and Bengali translations, cross-language fuzzy search, customizable reading settings, and a sacred manuscript-inspired dark theme.
 
 ![Quran Web App Preview](./public/preview.png)
 
@@ -20,14 +20,16 @@ A modern, full-stack Quran reader application featuring Arabic text with Sahih I
 ## Features
 
 - **Browse all 114 Surahs** - Grid layout with surah name, type (Meccan/Medinan), and verse count
-- **Read with dual text** - Arabic text alongside Sahih International English translation
-- **Fuzzy search** - Search through all verses by translation text, powered by Fuse.js
+- **Read with dual text** - Arabic text alongside English or Bengali translation
+- **Multi-language support** - Switch between English (Sahih International) and Bengali translations instantly - both pre-fetched at build time for zero-latency switching
+- **Cross-language fuzzy search** - Search in English or Bengali regardless of your active language setting, powered by Fuse.js with dual-index matching
 - **Customizable reading** - Choose Arabic font (Amiri or Scheherazade New), adjust font sizes for Arabic and translation text independently
 - **Dark/Light/System theme** - Toggle between themes with persistent preference
 - **Responsive design** - Optimized for desktop, tablet, and mobile
 - **Sacred manuscript aesthetic** - Deep midnight theme with warm gold accents and geometric motifs
 - **Persistent settings** - Reading preferences saved to localStorage via `useSyncExternalStore`
 - **Static generation** - All 114 surah pages are pre-rendered at build time for instant loading
+- **Optimized data lookups** - Pre-built hash maps for O(1) translation lookups instead of O(n) array scanning
 
 ## Tech Stack
 
@@ -156,12 +158,14 @@ cd server && pnpm build
 
 ## API Endpoints
 
-| Method | Endpoint                | Description                             |
-| ------ | ----------------------- | --------------------------------------- |
-| `GET`  | `/`                     | API info and available endpoints        |
-| `GET`  | `/api/chapters`         | Get all 114 chapters (metadata)         |
-| `GET`  | `/api/chapters/:id`     | Get a single chapter with all verses    |
-| `GET`  | `/api/search?q={query}` | Fuzzy search through verse translations |
+| Method | Endpoint                         | Description                                              |
+| ------ | -------------------------------- | -------------------------------------------------------- |
+| `GET`  | `/`                              | API info and available endpoints                         |
+| `GET`  | `/api/chapters`                  | Get all 114 chapters (metadata)                          |
+| `GET`  | `/api/chapters/:id`              | Get a single chapter with all verses                     |
+| `GET`  | `/api/chapters/:id?lang=bn`      | Get a chapter with Bengali translations                  |
+| `GET`  | `/api/search?q={query}`          | Fuzzy search through verse translations (both languages) |
+| `GET`  | `/api/search?q={query}&lang=bn`  | Search with Bengali translation results                  |
 
 ## Deploying Hono to Vercel - The ESM Struggle
 
