@@ -1,4 +1,4 @@
-import type { AppSettings, ArabicFontOption } from "@/lib/types/quran";
+import type { AppSettings, ArabicFontOption, TranslationLanguageOption } from "@/lib/types/quran";
 
 export const BACKEND_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:3001";
@@ -20,7 +20,13 @@ export const DEFAULT_SETTINGS: AppSettings = {
   arabicFont: "amiri",
   arabicFontSize: 28,
   translationFontSize: 16,
+  translationLanguage: "en",
 };
+
+export const TRANSLATION_LANGUAGE_OPTIONS: TranslationLanguageOption[] = [
+  { label: "English", value: "en" },
+  { label: "বাংলা", value: "bn" },
+];
 
 export const ARABIC_FONT_SIZE_MIN = 20;
 export const ARABIC_FONT_SIZE_MAX = 48;

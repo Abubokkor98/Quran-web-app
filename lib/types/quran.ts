@@ -35,10 +35,18 @@ export interface SearchResponse {
   results: SearchResultItem[];
 }
 
+export type TranslationLanguage = "en" | "bn";
+
+export interface TranslationLanguageOption {
+  label: string;
+  value: TranslationLanguage;
+}
+
 export interface AppSettings {
   arabicFont: ArabicFontValue;
   arabicFontSize: number;
   translationFontSize: number;
+  translationLanguage: TranslationLanguage;
 }
 
 export type ArabicFontValue = "amiri" | "scheherazade";

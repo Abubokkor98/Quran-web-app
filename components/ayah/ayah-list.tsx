@@ -6,14 +6,16 @@ import type { Verse } from "@/lib/types/quran";
 import { AyahCard } from "./ayah-card";
 
 interface AyahListProps {
-  verses: Verse[];
+  versesEn: Verse[];
+  versesBn: Verse[];
   chapterId: number;
 }
 
-export function AyahList({ verses, chapterId }: AyahListProps) {
+export function AyahList({ versesEn, versesBn, chapterId }: AyahListProps) {
   const { settings } = useSettings();
 
-  // Find the current font option based on the settings
+  const verses = settings.translationLanguage === "bn" ? versesBn : versesEn;
+
   const fontOption = ARABIC_FONT_OPTIONS.find(
     (option) => option.value === settings.arabicFont
   );

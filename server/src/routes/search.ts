@@ -14,7 +14,7 @@ searchRoute.get("/search", (context) => {
     );
   }
 
-  const results = searchVerses(query);
+  const results = searchVerses(query, context.req.query("lang"));
 
   return context.json({
     query,

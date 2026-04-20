@@ -47,8 +47,14 @@ export default async function SurahPage({ params }: SurahPageProps) {
     notFound();
   }
 
-  // Fetch the chapter data
-  const chapter = await fetchChapterById(chapterId);
+  // Fetch both language translations at build time for instant switching
+  const [chapterEn, chapterBn] = await Promise.all([
+    fetchChapterById(chapterId, "en"),
+    fetchChapterById(chapterId, "bn"),
+  ]);
+
+  // Use English as the primary chapter for metadata
+  const chapter = chapterEn;
 
   // Check if there is a previous or next surah
   const hasPrevious = chapterId > 1;
@@ -67,7 +73,11 @@ export default async function SurahPage({ params }: SurahPageProps) {
       <SurahHeader chapter={chapter} />
 
       <div className="mt-8">
-        <AyahList verses={chapter.verses} chapterId={chapter.id} />
+        <AyahList
+          versesEn={chapterEn.verses}
+          versesBn={chapterBn.verses}
+          chapterId={chapter.id}
+        />
       </div>
 
       {/* Navigation buttons */}

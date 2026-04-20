@@ -5,16 +5,20 @@ interface SearchResultsLoaderProps {
   query: string;
 }
 
-export async function SearchResultsLoader({
-  query,
-}: SearchResultsLoaderProps) {
-  const data = await searchAyahs(query);
+export async function SearchResultsLoader({ query }: SearchResultsLoaderProps) {
+  // Fetch both languages in parallel
+  const [dataEn, dataBn] = await Promise.all([
+    searchAyahs(query, "en"),
+    searchAyahs(query, "bn"),
+  ]);
 
   return (
     <SearchResults
-      results={data.results}
-      totalResults={data.totalResults}
-      query={data.query}
+      resultsEn={dataEn.results}
+      resultsBn={dataBn.results}
+      totalResultsEn={dataEn.totalResults}
+      totalResultsBn={dataBn.totalResults}
+      query={query}
     />
   );
 }

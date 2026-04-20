@@ -9,7 +9,9 @@ import {
   TRANSLATION_FONT_SIZE_MAX,
   TRANSLATION_FONT_SIZE_MIN,
   TRANSLATION_FONT_SIZE_STEP,
+  TRANSLATION_LANGUAGE_OPTIONS,
 } from "@/lib/constants";
+import type { TranslationLanguage } from "@/lib/types/quran";
 import {
   Sheet,
   SheetContent,
@@ -23,6 +25,13 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { FontSelect } from "@/components/settings/font-select";
 import { FontSizeSlider } from "@/components/settings/font-size-slider";
 import { SettingsPreview } from "@/components/settings/settings-preview";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function SettingsPanel() {
   const { settings, updateSettings } = useSettings();
@@ -31,7 +40,8 @@ export function SettingsPanel() {
   const hasChanges =
     settings.arabicFont !== DEFAULT_SETTINGS.arabicFont ||
     settings.arabicFontSize !== DEFAULT_SETTINGS.arabicFontSize ||
-    settings.translationFontSize !== DEFAULT_SETTINGS.translationFontSize;
+    settings.translationFontSize !== DEFAULT_SETTINGS.translationFontSize ||
+    settings.translationLanguage !== DEFAULT_SETTINGS.translationLanguage;
 
   // Reset settings to default
   const handleReset = () => {
@@ -63,6 +73,30 @@ export function SettingsPanel() {
         {/* Controls */}
         <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
           <FontSelect />
+
+          {/* Translation Language */}
+          <div className="space-y-2.5">
+            <label className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
+              Translation Language
+            </label>
+            <Select
+              value={settings.translationLanguage}
+              onValueChange={(value: TranslationLanguage) =>
+                updateSettings({ translationLanguage: value })
+              }
+            >
+              <SelectTrigger id="translation-language-select" className="w-full h-10">
+                <SelectValue placeholder="Select language" />
+              </SelectTrigger>
+              <SelectContent>
+                {TRANSLATION_LANGUAGE_OPTIONS.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           <FontSizeSlider
             id="arabic-font-size-slider"

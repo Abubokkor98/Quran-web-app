@@ -3,6 +3,7 @@ import type {
   ChapterDetail,
   ChapterMeta,
   SearchResponse,
+  TranslationLanguage,
 } from "@/lib/types/quran";
 
 interface ChaptersApiResponse {
@@ -32,12 +33,14 @@ export async function fetchAllChapters(): Promise<ChapterMeta[]> {
 }
 
 export async function fetchChapterById(
-  id: number
+  id: number,
+  lang: TranslationLanguage = "en"
 ): Promise<ChapterDetail> {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/chapters/${id}`, {
-      cache: "force-cache",
-    });
+    const response = await fetch(
+      `${BACKEND_URL}/api/chapters/${id}?lang=${lang}`,
+      { cache: "force-cache" }
+    );
 
     if (!response.ok) {
       throw new Error(`Failed to fetch chapter ${id}: ${response.status}`);
@@ -51,10 +54,13 @@ export async function fetchChapterById(
   }
 }
 
-export async function searchAyahs(query: string): Promise<SearchResponse> {
+export async function searchAyahs(
+  query: string,
+  lang: TranslationLanguage = "en"
+): Promise<SearchResponse> {
   try {
     const response = await fetch(
-      `${BACKEND_URL}/api/search?q=${encodeURIComponent(query)}`
+      `${BACKEND_URL}/api/search?q=${encodeURIComponent(query)}&lang=${lang}`
     );
 
     if (!response.ok) {

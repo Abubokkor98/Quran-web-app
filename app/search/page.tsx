@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { SearchInput } from "@/components/search/search-input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SearchResultsLoader } from "@/components/search/search-results-loader";
 
@@ -30,25 +29,28 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </p>
       </div>
 
-      <SearchInput initialQuery={query ?? ""} />
-
-      {query && query.trim().length >= 2 && (
-        <div className="mt-10">
-          <Suspense
-            key={query}
-            fallback={
-              <div className="space-y-3">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <Skeleton
-                    key={index}
-                    className="h-36 w-full rounded-lg"
-                  />
-                ))}
-              </div>
-            }
-          >
-            <SearchResultsLoader query={query} />
-          </Suspense>
+      {query && query.trim().length >= 2 ? (
+        <Suspense
+          key={query}
+          fallback={
+            <div className="space-y-3">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Skeleton
+                  key={index}
+                  className="h-36 w-full rounded-lg"
+                />
+              ))}
+            </div>
+          }
+        >
+          <SearchResultsLoader query={query} />
+        </Suspense>
+      ) : (
+        <div className="text-center py-16">
+          <p className="text-gold/40 text-4xl font-amiri mb-4">✦</p>
+          <p className="text-muted-foreground">
+            Use the search bar above to find ayahs
+          </p>
         </div>
       )}
     </div>

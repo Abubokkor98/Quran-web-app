@@ -19,7 +19,8 @@ chaptersRoute.get("/chapters/:id", (context) => {
     return context.json({ error: "Invalid chapter ID. Must be 1-114." }, 400);
   }
 
-  const chapter = getChapterById(id);
+  const lang = context.req.query("lang");
+  const chapter = getChapterById(id, lang);
 
   if (!chapter) {
     return context.json({ error: "Chapter not found." }, 404);
